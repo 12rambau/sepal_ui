@@ -3,7 +3,6 @@
 The nox run are build in isolated environment that will be stored in .nox. to force the venv update, remove the .nox/xxx folder.
 """
 
-
 import nox
 
 nox.options.sessions = ["lint", "test", "docs"]
@@ -20,6 +19,15 @@ def lint(session):
 def test(session):
     """Run all the test using the environment variable of the running machine."""
     session.install(".[test]")
+
+    # if we are in the sepal-venv, force earthengine api fork
+    if "sepal-user" in session.virtualenv.location:
+        session.run(
+            "pip",
+            "install",
+            "git+https://github.com/openforis/earthengine-api.git@v0.1.384#egg=earthengine-api&subdirectory=python",
+        )
+
     test_files = session.posargs or ["tests"]
     session.run("pytest", "--color=yes", "--cov", "--cov-report=xml", *test_files)
 

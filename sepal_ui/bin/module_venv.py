@@ -63,12 +63,36 @@ def main() -> None:
     pip = current_dir_venv / "bin" / "pip"
     python3 = current_dir_venv / "bin" / "python3"
 
-    for lib in ["wheel", "Cython", "ipykernel"]:
-        subprocess.run([str(pip), "install", lib], cwd=Path.cwd())
+    base_libs = [
+        "wheel",
+        "ipykernel",
+        "numpy",
+        "GDAL==3.8.3",
+    ]
+
+    # if we are in sepal, install earthengine-api OF fork
+
+    if "sepal-user" in str(Path.cwd()):
+        earthengine_api = "git+https://github.com/openforis/earthengine-api.git@v0.1.384#egg=earthengine-api&subdirectory=python"
+        base_libs.append(earthengine_api)
+
+    subprocess.run([str(pip), "install", "--upgrade", "pip"], cwd=Path.cwd())
+
+    for lib in base_libs:
+        subprocess.run([str(pip), "install", "--no-cache-dir", lib], cwd=Path.cwd())
 
     # install all the requirements
     req = Path.cwd() / "requirements.txt"
-    subprocess.run([str(pip), "install", "-r", str(req)], cwd=Path.cwd())
+    subprocess.run(
+        [
+            str(pip),
+            "install",
+            "--no-cache-dir",
+            "-r",
+            str(req),
+        ],
+        cwd=Path.cwd(),
+    )
 
     # search for the module.yaml file
     # it embeds name and entry point
