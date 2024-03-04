@@ -42,7 +42,8 @@
       "custom": "Custom",
       "no_access": "It seems like you do not have access to the input asset or it does not exist.",
       "wrong_type": "The type of the selected asset ({}) does not match authorized asset type ({}).",
-      "placeholder": "users/custom_user/custom_asset"
+      "placeholder": "projects/{project}/assets/asset_name",
+      "no_assets": "No user assets found in: '{}'"
     },
     "load_table": {
       "too_small": "The provided file have less than 3 columns. Please provide a complete point file with at least ID, lattitude and longitude columns."

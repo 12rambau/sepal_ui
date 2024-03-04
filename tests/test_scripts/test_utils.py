@@ -1,7 +1,10 @@
 """Test the helper methods contained in utils file."""
 
+import json
+import os
 import random
 from configparser import ConfigParser
+from pathlib import Path
 from unittest.mock import patch
 
 import ee
@@ -105,11 +108,57 @@ def test_get_file_size() -> None:
     return
 
 
-@pytest.mark.skipif(not ee.data._credentials, reason="GEE is not set")
 def test_init_ee() -> None:
-    """Check we can init EE."""
-    # check that no error is raised
-    su.init_ee()
+    """Test the init_ee_from_token function."""
+    credentials_filepath = Path(ee.oauth.get_credentials_path())
+    existing = False
+
+    try:
+        # Reset credentials to force the initialization
+        # It can be initiated from different imports
+        ee.data._credentials = None
+
+        # Get the credentials path
+
+        # Remove the credentials file if it exists
+        if credentials_filepath.exists():
+            existing = True
+            credentials_filepath.rename(credentials_filepath.with_suffix(".json.bak"))
+
+        # Act: Earthengine token should be created
+        su.init_ee()
+
+        assert credentials_filepath.exists()
+
+        # read the back up and remove the "project_id" key
+        credentials = json.loads(
+            credentials_filepath.with_suffix(".json.bak").read_text()
+        )
+
+        ## 2. Assert when there's no a project associated
+        # remove the project_id key if it exists
+        credentials.pop("project_id", None)
+        credentials.pop("project", None)
+        if "EARTHENGINE_PROJECT" in os.environ:
+            del os.environ["EARTHENGINE_PROJECT"]
+
+        # write the new credentials
+        credentials_filepath.write_text(json.dumps(credentials))
+
+        with pytest.raises(NameError) as e:
+            su.init_ee()
+
+        # Access the exception message via `e.value`
+        error_message = str(e.value)
+        assert "The project name cannot be detected" in error_message
+
+    finally:
+        # restore the file
+        if existing:
+            credentials_filepath.with_suffix(".json.bak").rename(credentials_filepath)
+
+        # check that no error is raised
+        su.init_ee()
 
     return
 

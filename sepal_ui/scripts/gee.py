@@ -95,7 +95,7 @@ def get_assets(folder: Union[str, Path] = "") -> List[dict]:
     """
     # set the folder and init the list
     asset_list = []
-    folder = str(folder) or ee.data.getAssetRoots()[0]["id"]
+    folder = str(folder) or f"projects/{ee.data._cloud_api_user_project}/assets/"
 
     def _recursive_get(folder, asset_list):
 
@@ -122,7 +122,7 @@ def is_asset(asset_name: str, folder: Union[str, Path] = "") -> bool:
         true if already in folder
     """
     # get the folder
-    folder = str(folder) or ee.data.getAssetRoots()[0]["id"]
+    folder = str(folder) or f"projects/{ee.data._cloud_api_user_project}/assets/"
 
     # get all the assets
     asset_list = get_assets(folder)
