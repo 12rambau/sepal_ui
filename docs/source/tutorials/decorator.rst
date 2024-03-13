@@ -78,6 +78,7 @@ Let's import the required modules. All the decorators are stored in the utils mo
 
 .. code:: python
 
+    import ee
     from time import sleep
     import ipyvuetify as v
     import sepal_ui.sepalwidgets as sw
@@ -142,7 +143,7 @@ It's time to use the decorators in the class methods. For this example, we will 
         def request_items(self):
             """Connect to gee and request the root assets id's"""
 
-            folder = ee.data.getAssetRoots()[0]["id"]
+            folder = f"projects/{ee.data._cloud_api_user_project}/assets"
             return [
                 asset["id"]
                 for asset

@@ -7,6 +7,7 @@ import ee
 import pytest
 
 from sepal_ui import sepalwidgets as sw
+from sepal_ui.message import ms
 
 
 @pytest.mark.skipif(not ee.data._credentials, reason="GEE is not set")
@@ -24,7 +25,15 @@ def test_init(gee_dir: Path, gee_user_dir: Path) -> None:
 
     # create an asset select with an undefined type
     asset_select = sw.AssetSelect(folder=str(gee_dir), types=["toto"])
-    assert asset_select.items == []
+
+    # zero assets are represented by a disabled item
+    no_asset_item = [
+        {
+            "text": ms.widgets.asset_select.no_assets.format(str(gee_dir)),
+            "disabled": True,
+        }
+    ]
+    assert asset_select.items == no_asset_item
 
     return
 

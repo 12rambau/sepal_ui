@@ -22,7 +22,7 @@ dependencies = [
     # building widgets
     "tomli",
     "ipykernel",
-    "ipyvuetify",
+    "ipyvuetify==1.8.10",
     "markdown",
     "ipyleaflet>=0.14.0",  # to have access to data member in edition
     # earthengine management

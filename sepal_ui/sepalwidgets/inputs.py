@@ -690,7 +690,9 @@ class AssetSelect(v.Combobox, SepalWidget):
         self.asset_info = None
 
         # if folder is not set use the root one
-        self.folder = str(folder) or ee.data.getAssetRoots()[0]["id"]
+        self.folder = (
+            str(folder) or f"projects/{ee.data._cloud_api_user_project}/assets/"
+        )
         self.types = types
 
         # load the default assets
@@ -698,6 +700,8 @@ class AssetSelect(v.Combobox, SepalWidget):
 
         # Validate the input as soon as the object is instantiated
         self.observe(self._validate, "v_model")
+
+        self.observe(self._fill_no_data, "items")
 
         # set the default parameters
         kwargs.setdefault("v_model", None)
@@ -714,9 +718,25 @@ class AssetSelect(v.Combobox, SepalWidget):
         # load the assets in the combobox
         self._get_items()
 
+        self._fill_no_data({})
+
         # add js behaviours
         self.on_event("click:prepend", self._get_items)
         self.observe(self._get_items, "default_asset")
+
+    def _fill_no_data(self, _: dict) -> None:
+        """Fill the items with a no data message if the items are empty."""
+        # Done in this way because v_slots are not working
+        if not self.items:
+            self.v_model = None
+            self.items = [
+                {
+                    "text": ms.widgets.asset_select.no_assets.format(self.folder),
+                    "disabled": True,
+                }
+            ]
+
+        return
 
     @sd.switch("loading")
     def _validate(self, change: dict) -> None:

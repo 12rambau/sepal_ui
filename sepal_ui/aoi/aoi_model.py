@@ -154,7 +154,9 @@ class AoiModel(Model):
         self.gee = gee
         if gee:
             su.init_ee()
-            self.folder = str(folder) or ee.data.getAssetRoots()[0]["id"]
+            self.folder = (
+                str(folder) or f"projects/{ee.data._cloud_api_user_project}/assets/"
+            )
 
         # set default values
         self.set_default(vector, admin, asset)
