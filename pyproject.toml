@@ -36,7 +36,7 @@ dependencies = [
     "geopandas",
     "matplotlib",
     "jupyter-server-proxy", # required for localtileserver
-    "planet>=2",
+    "planet<2.7",
     "pyarrow",
     "localtileserver>=0.7.0", # first pure rio version
     "pygaul>=0.3.1", # use the class implementation
