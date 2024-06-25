@@ -36,7 +36,7 @@ dependencies = [
     "geopandas",
     "matplotlib",
     "jupyter-server-proxy", # required for localtileserver
-    "planet>=2",
+    "planet<2.7",
     "pyarrow",
     "localtileserver>=0.7.0", # first pure rio version
     "pygaul>=0.3.1", # use the class implementation
@@ -107,6 +107,7 @@ module_theme = "sepal_ui.bin.module_theme:main"
 module_venv = "sepal_ui.bin.module_venv:main"
 activate_venv = "sepal_ui.bin.activate_venv:main"
 sepal_ipyvuetify = "sepal_ui.bin.sepal_ipyvuetify:main"
+entry_point = "sepal_ui.bin.entry_point:main"
 
 [tool.setuptools]
 include-package-data = false

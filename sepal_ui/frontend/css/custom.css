@@ -31,6 +31,7 @@ header.v-app-bar {
 /* set the menu_content on top of the map when it's set to fullscreen */
 .v-menu__content {
   max-width: 100% !important;
+  z-index: 801 !important;
 }
 
 /* make sure navigation drawers are always visible when they exist */

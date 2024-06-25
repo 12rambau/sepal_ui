@@ -23,15 +23,16 @@ init()
 
 # init parser
 parser = argparse.ArgumentParser(description=__doc__, usage="module_venv")
+parser.add_argument("--venv_prefix", default="test", help="Prefix for the virtual environment name")
 
 
 def main() -> None:
     """Launch the venv creation process."""
     # read arguments (there should be none)
-    parser.parse_args()
+    args = parser.parse_args()
 
     # welcome the user
-    print(f"{Fore.YELLOW}venv creation interface{Fore.RESET}")
+    print(f"{Fore.YELLOW}venv creation interface v10{Fore.RESET}")
 
     # check that the local folder is a module folder
     ui_file = Path.cwd() / "ui.ipynb"
@@ -63,12 +64,52 @@ def main() -> None:
     pip = current_dir_venv / "bin" / "pip"
     python3 = current_dir_venv / "bin" / "python3"
 
-    for lib in ["wheel", "Cython", "ipykernel"]:
-        subprocess.run([str(pip), "install", lib], cwd=Path.cwd())
+    base_libs = ["wheel", "ipykernel", "numpy"]
+
+    # if we are in sepal, install earthengine-api OF fork
+
+    if "sepal-user" in str(Path.cwd()):
+        earthengine_api = "git+https://github.com/openforis/earthengine-api.git@v0.1.384#egg=earthengine-api&subdirectory=python"
+        base_libs.append(earthengine_api)
+
+    subprocess.run([str(pip), "install", "--upgrade", "pip"], cwd=Path.cwd())
+
+    for lib in base_libs:
+        subprocess.run([str(pip), "install", "--no-cache-dir", lib], cwd=Path.cwd())
+
+    # Default installation of GDAL
+    # If we are installing it as venv (usually in github actions) we need to install gdal as binary
+    gdal_version = "3.8.3"
+
+    # We assume we are in a github action runner if the path contains "home/runner/"
+    if "home/runner/" not in str(Path.cwd()):
+        subprocess.run(
+            [str(pip), "install", "--no-cache-dir", f"GDAL=={gdal_version}"], cwd=Path.cwd()
+        )
+    else:
+        subprocess.run(
+            [
+                str(pip),
+                "install",
+                "--no-cache-dir",
+                "--find-links=https://girder.github.io/large_image_wheels",
+                f"GDAL=={gdal_version}",
+            ],
+            cwd=Path.cwd(),
+        )
 
     # install all the requirements
     req = Path.cwd() / "requirements.txt"
-    subprocess.run([str(pip), "install", "-r", str(req)], cwd=Path.cwd())
+    subprocess.run(
+        [
+            str(pip),
+            "install",
+            "--no-cache-dir",
+            "-r",
+            str(req),
+        ],
+        cwd=Path.cwd(),
+    )
 
     # search for the module.yaml file
     # it embeds name and entry point
@@ -82,11 +123,11 @@ def main() -> None:
 
     else:
         entry_point = Path.cwd() / "ui.ipynb"
-        name = Path.cwd().stem
+        name = Path.cwd().name
 
     # create the kernel from venv
-    name = f"test-{Path.cwd().stem}"
-    display_name = f"(test) {name}"
+    name = f"{args.venv_prefix}-{Path.cwd().name}"
+    display_name = f"({args.venv_prefix}) {name}"
     subprocess.run(
         [
             str(python3),
