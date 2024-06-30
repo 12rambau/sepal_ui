@@ -23,12 +23,7 @@
     "navdrawer": {
       "code": "Code source",
       "wiki": "Wiki",
-      "bug": "Signaler un Bug",
-      "changelog": {
-        "version": "",
-        "title": "",
-        "close_btn": ""
-      }
+      "bug": "Signaler un Bug"
     },
     "asset_select": {
       "types": {
@@ -42,8 +37,7 @@
       "custom": "Personnaliser",
       "no_access": "Il semble que vous n'ayez pas accès à l'Asset selectionné ou qu'il n'existe pas.",
       "wrong_type": "Le type de l'asset selectioné ({}) ne correspond pas aux type autorisés par le widget ({}).",
-      "placeholder": "",
-      "no_assets": ""
+      "placeholder": ""
     },
     "load_table": {
       "too_small": "Le fichier fourni comporte moins de 3 colonnes. Veuillez fournir un fichier de points complet avec au moins les colonnes ID, lattitude et longitude."
@@ -80,8 +74,7 @@
       "no_draw": "Veuillez dessiner une forme sur la carte",
       "no_admlyr": "Sélectionnez une couche administrative",
       "invalid_code": "Le code administratif n'est pas dans la base de données.",
-      "no_gdf": "Vous devez définir le gdf avant d'interagir avec celui-ci",
-      "no_fc": ""
+      "no_gdf": "Vous devez définir le gdf avant d'interagir avec celui-ci"
     }
   },
   "mapping": {
@@ -92,17 +85,14 @@
     "exception": {
       "empty": "Veuillez renseigner tous les champs obligatoires.",
       "invalid": "Email ou mot de passe invalide",
-      "nosubs": "Vos identifiants n'ont pas d'abonnement PlanetLab valide.",
-      "no_secret_file": ""
+      "nosubs": "Vos identifiants n'ont pas d'abonnement PlanetLab valide."
     },
     "widget": {
       "username": "Nom d'utilisateur PlanetLab",
       "password": "Mot de passe PlanetLab",
       "apikey": "Clé API PlanetLab",
-      "store": "",
       "method": {
         "label": "Méthode d'accès",
-        "from_file": "",
         "credentials": "Identifiants",
         "api_key": "Clé API PlanetLab"
       }

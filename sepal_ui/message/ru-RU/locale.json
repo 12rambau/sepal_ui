@@ -23,12 +23,7 @@
     "navdrawer": {
       "code": "",
       "wiki": "",
-      "bug": "",
-      "changelog": {
-        "version": "",
-        "title": "",
-        "close_btn": ""
-      }
+      "bug": ""
     },
     "asset_select": {
       "types": {
@@ -42,8 +37,7 @@
       "custom": "",
       "no_access": "",
       "wrong_type": "",
-      "placeholder": "",
-      "no_assets": ""
+      "placeholder": ""
     },
     "load_table": {
       "too_small": ""
@@ -80,8 +74,7 @@
       "no_draw": "",
       "no_admlyr": "",
       "invalid_code": "",
-      "no_gdf": "",
-      "no_fc": ""
+      "no_gdf": ""
     }
   },
   "mapping": {
@@ -92,17 +85,14 @@
     "exception": {
       "empty": "",
       "invalid": "",
-      "nosubs": "",
-      "no_secret_file": ""
+      "nosubs": ""
     },
     "widget": {
       "username": "",
       "password": "",
       "apikey": "",
-      "store": "",
       "method": {
         "label": "",
-        "from_file": "",
         "credentials": "",
         "api_key": ""
       }

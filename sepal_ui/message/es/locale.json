@@ -23,12 +23,7 @@
     "navdrawer": {
       "code": "Código fuente",
       "wiki": "Wiki",
-      "bug": "Reportar error",
-      "changelog": {
-        "version": "",
-        "title": "",
-        "close_btn": ""
-      }
+      "bug": "Reportar error"
     },
     "asset_select": {
       "types": {
@@ -42,8 +37,7 @@
       "custom": "Personalizado",
       "no_access": "Parece que no tienes acceso al asset seleccionado o este no existe.",
       "wrong_type": "El tipo del asset seleccionado: ({}), no coincide con ninguno de los tipos permitidos por el widget: ({}).",
-      "placeholder": "",
-      "no_assets": ""
+      "placeholder": ""
     },
     "load_table": {
       "too_small": "El archivo ingresado contiene menos de 3 columnas. Por favor, selecciona un archivo de puntos completo con al menos las columnas de ID, latitud y longitud."
@@ -80,8 +74,7 @@
       "no_draw": "",
       "no_admlyr": "",
       "invalid_code": "",
-      "no_gdf": "",
-      "no_fc": ""
+      "no_gdf": ""
     }
   },
   "mapping": {
@@ -92,17 +85,14 @@
     "exception": {
       "empty": "Por favor completa todos los campos",
       "invalid": "Correo electrónico o contraseña inválidos",
-      "nosubs": "Tus credenciales no tienen asociada ninguna suscripción válida de Planet.",
-      "no_secret_file": ""
+      "nosubs": "Tus credenciales no tienen asociada ninguna suscripción válida de Planet."
     },
     "widget": {
       "username": "Nombre de usuario",
       "password": "Contraseña",
       "apikey": "API key",
-      "store": "",
       "method": {
         "label": "Método de inicio de sesión",
-        "from_file": "",
         "credentials": "Credenciales",
         "api_key": "API key"
       }
